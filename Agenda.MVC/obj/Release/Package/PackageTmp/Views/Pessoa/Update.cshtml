@@ -1,0 +1,43 @@
+﻿@model Agenda.MVC.ViewModels.PessoaViewModel
+
+@{
+    ViewBag.Title = "Editar Contato";
+}
+
+<h2>Editar Contato</h2>
+
+
+@using (Html.BeginForm("Update", "Pessoa"))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Nome" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.DropDownList("MarcadorId", (IEnumerable<SelectListItem>)ViewBag.PessoaMarcadorId, null, new { @class = "form-control col-md-12" })
+            @Html.ValidationMessageFor(model => model.MarcadorId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <input type="submit" value="Salvar" class="btn btn-primary col-md-12" />
+        </div>
+        <div class="col-md-9">
+            <a class="btn btn-light float-right" href="/">Voltar</a>
+        </div>
+    </div>
+</div>   
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

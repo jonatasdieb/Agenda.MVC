@@ -1,0 +1,227 @@
+﻿@model Agenda.MVC.ViewModels.PessoaViewModel
+
+@{
+    ViewBag.Title = "Contato - Detalhes";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="text-center">@Html.DisplayFor(model => model.Nome) - @Html.DisplayFor(model => model.Marcador.Descricao) <a class="text-warning" href="/Pessoa/Update/@Model.Id"> <i class="fas fa-edit fa-sm"> </i></a></h4>
+    </div>
+
+
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <h5><i class="fas fa-address-book fa-sm"> </i>&nbsp;Contatos  </h5>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-sm btn-success float-right" href="/Contato/Create/@Model.Id">Novo Contato</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Contatos.Count > 0)
+        {
+
+            foreach (var contato in Model.Contatos)
+            {
+                <li class="list-group-item col-md-12">
+                    <b>@contato.Tipo.Descricao</b> - @contato.Descricao
+                    <span class="float-right">
+                        <a class="text-warning" href="/Contato/Update/@contato.Id">
+                            <i class="fas fa-edit fa-lg"> </i>
+                        </a>
+                        <a href="#" class="text-danger" data-toggle="modal" data-target="#delContatoModal" onclick="confirmarDelContato(@contato.Id)">
+                            <i class="fas fa-times-circle fa-lg"> </i>
+                        </a>
+                    </span>
+                </li>
+            }
+
+        }
+    </div>
+</div>
+
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <h5><i class="fas fa-car fa-sm"> </i>&nbsp;Endereços</h5>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-sm btn-success float-right" href="/Endereco/Create/@Model.Id">Novo Endereço</a>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Enderecos.Count > 0)
+        {
+            foreach (var endereco in Model.Enderecos)
+            {
+                <div class="card">
+                    <div class="card-header" id="heading@(endereco.Id)">
+                        <div class="row">
+                            <div class="col-md-8" data-toggle="collapse" data-target="#collapseEnd@(endereco.Id)" aria-expanded="true" aria-controls="collapseEnd@(endereco.Id)">
+                                <span>
+                                    <i class="fas fa-angle-double-down fa-sm text-success"></i>&nbsp;
+                                    @endereco.Tipo.Descricao
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" class="text-danger float-right mr-3" data-toggle="modal" data-target="#delEnderecoModal" onclick="confirmarDelEndereco(@endereco.Id)">
+                                    <i class="fas fa-times-circle fa-lg"> </i>
+                                </a>
+                                <a class="text-warning float-right mr-1" href="/Endereco/Update/@endereco.Id">
+                                    <i class="fas fa-edit fa-lg"> </i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapseEnd@(endereco.Id)" class="collapse" aria-labelledby="heading@(endereco.Id)">
+                        <div class="card-body">
+                            <b>Logradouro:</b> @endereco.Logradouro, Nº @endereco.Numero @endereco.Complemento<br />
+                            <b>Bairro:</b> @endereco.Bairro <br />
+                            <b>Cidade:</b> @endereco.Cidade / @endereco.Estado
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-light" href="/Pessoa/">Voltar</a>
+        <a class="btn btn-danger float-right" href="#" data-toggle="modal" data-target="#delTudoModal" onclick="confirmarDelTudo(@Model.Id)"> <i class="fas fa-trash fa-lg"> </i> &nbsp; DELETAR TUDO</a>
+    </div>
+</div>
+
+<!--MODAL DELETAR ENDERECO-->
+<div class="modal fade" id="delEnderecoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Endereço</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Tem certeza que deseja deletar esse endereço?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="delEndereco()">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIM MODAL DELETAR ENDERECO-->
+<!--MODAL DELETAR CONTATO-->
+<div class="modal fade" id="delContatoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar forma de contato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Tem certeza que deseja deletar essa forma de contato?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="delContato()">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIM MODAL DELETAR CONTATO-->
+<!--MODAL DELETAR TUDO-->
+<div class="modal fade" id="delTudoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Contato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Tem certeza que deseja deletar todas as informações?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="delTudo()">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIM MODAL DELETAR TUDO-->
+
+@using (Html.BeginForm("Delete", "Endereco", FormMethod.Post, new { @id = "formDelEndereco" }))
+{
+    @Html.AntiForgeryToken()
+    <input id="delEnderecoId" name="Id" hidden />
+    <input type="submit" hidden />
+}
+
+@using (Html.BeginForm("Delete", "Contato", FormMethod.Post, new { @id = "formDelContato" }))
+{
+    @Html.AntiForgeryToken()
+    <input id="delContatoId" name="Id" hidden />
+    <input type="submit" hidden />
+}
+
+@using (Html.BeginForm("Delete", "Pessoa", FormMethod.Post, new { @id = "formDelTudo" }))
+{
+    @Html.AntiForgeryToken()
+    <input id="delTudoId" name="Id" hidden />
+    <input type="submit" hidden />
+}
+
+<script>
+    //scripts para confirmação via modal de exclusão de endereços, contatos e pessoas, sem necessidade de mudar de página para confirmação.
+
+    confirmarDelEndereco = function (id) {
+        $('#delEnderecoId').val(id);
+    }
+
+    delEndereco = function () {
+        $('#formDelEndereco').submit();
+    }
+
+    confirmarDelContato = function (id) {
+        $('#delContatoId').val(id);
+    }
+
+    delContato = function () {
+        $('#formDelContato').submit();
+    }
+
+    confirmarDelTudo = function (id) {
+        $('#delTudoId').val(id);
+    }
+
+    delTudo = function () {
+        $('#formDelTudo').submit();
+    }
+
+</script>
+
+

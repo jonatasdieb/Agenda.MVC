@@ -1,0 +1,39 @@
+﻿@model Agenda.MVC.ViewModels.PessoaViewModel
+
+<fieldset>
+    <legend>Endereço</legend>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Endereco.Logradouro, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Logradouro", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Logradouro, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Endereco.Numero, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Número" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Numero, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Complemento" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Bairro" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Cidade" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Estado" } })
+            @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-5">
+            @Html.DropDownList("Endereco.TipoId", (IEnumerable<SelectListItem>)ViewBag.EnderecoTipoId, null, new { @class = "form-control col-md-12" })
+            @Html.ValidationMessageFor(model => model.Endereco.TipoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,11 @@
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\bin\Debug\Agenda.Domain.dll
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\bin\Debug\Agenda.Domain.pdb
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.csprojAssemblyReference.cache
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.dll
+C:\Users\Dieb1\source\repos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.pdb
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Domain\bin\Debug\Agenda.Domain.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Domain\bin\Debug\Agenda.Domain.pdb
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Domain\obj\Debug\Agenda.Domain.pdb

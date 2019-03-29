@@ -1,0 +1,14 @@
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\Agenda.Data.dll.config
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\Agenda.Data.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\Agenda.Data.pdb
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\Agenda.Domain.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\EntityFramework.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\Agenda.Domain.pdb
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\EntityFramework.xml
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\obj\Release\Agenda.Data.csprojAssemblyReference.cache
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\obj\Release\Agenda.Data.csproj.CoreCompileInputs.cache
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\obj\Release\Agenda.Data.csproj.CopyComplete
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\obj\Release\Agenda.Data.dll
+C:\Users\Dieb1\Documents\Projetos\Agenda\Agenda.Data\obj\Release\Agenda.Data.pdb

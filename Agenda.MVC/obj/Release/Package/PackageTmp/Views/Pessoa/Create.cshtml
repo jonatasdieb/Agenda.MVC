@@ -1,0 +1,98 @@
+﻿@model Agenda.MVC.ViewModels.PessoaViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Novo Contato";
+}
+
+<h4>Novo Contato</h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Nome" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.DropDownList("MarcadorId", (IEnumerable<SelectListItem>)ViewBag.PessoaMarcadorId, null, new { @class = "form-control col-md-12" })
+            @Html.ValidationMessageFor(model => model.MarcadorId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.EditorFor(model => model.Contato.Descricao, new { htmlAttributes = new { @class = "form-control col-md-12", @placeholder = "Contato" } })
+            @Html.ValidationMessageFor(model => model.Contato.Descricao, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.DropDownList("Contato.TipoId", (IEnumerable<SelectListItem>)ViewBag.ContatoTipoId, null, new { @class = "form-control col-md-12" })
+            @Html.ValidationMessageFor(model => model.Contato.TipoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br /><br />
+    <input type="checkbox" id="checkEnd" checked hidden/>
+    <button class="btn btn-sm btn-secondary end" id="addEndereco" type="button"> Adicionar Endereço <i class="fas fa-address-book fa-sm"> </i></button>
+    <button class="btn btn-sm btn-danger end" id="delEndereco" type="button" hidden> Remover Endereço <i class="fas fa-address-book fa-sm"> </i></button>
+    <br /><br />
+    <div id="divEndereco">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <input type="submit" value="Salvar" class="btn btn-primary col-md-12" />
+        </div>
+        <div class="col-md-9">
+            <a class="btn btn-light float-right" href="/">Voltar</a>
+        </div>
+    </div>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('.end').click(function () {
+                if ($('#checkEnd').prop("checked")) {                    
+                    $('#addEndereco').attr("hidden", true)
+                    $('#delEndereco').removeAttr("hidden")
+                    $('#divEndereco').load('@Url.Action("EnderecoPartial", "Pessoa")')
+                    $('#checkEnd').prop("checked", false)                    
+                } else {                                  
+                    $('#delEndereco').attr("hidden", true)
+                    $('#addEndereco').removeAttr("hidden")                    
+                    $('#divEndereco').empty()
+                    $('#checkEnd').prop("checked", true) 
+            }
+        })
+
+
+    })
+    </script>
+}
+<script>
+    $(document).ready(function () {
+        $('.end').click(function () {
+            alert('teste')
+            if ($('#addEndereco').prop("hidden")) {
+                $('#addEndereco').prop("hidden", "true")
+                $('#divEndereco').load('@Url.Action("EnderecoPartial", "Pessoa")')
+                $('#delEndereco').prop("hidden", "false")
+            } else {
+                $('#divEndereco').empty();
+                $('#delEndereco').prop("hidden", "true")
+                $('#addEndereco').prop("hidden", "false")
+            }
+        })
+
+
+    })
+</script>

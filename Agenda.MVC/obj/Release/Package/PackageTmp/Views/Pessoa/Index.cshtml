@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Agenda.MVC.ViewModels.PessoaViewModel>
+
+@{
+    /**/
+
+    ViewBag.Title = "Agenda de Contatos";
+}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-center">Agenda de Contatos</h2>
+    </div>
+</div>
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a class="btn btn-success text-white" href="/Pessoa/Create"><i class="fas fa-plus fa-sm">&nbsp; </i>Novo</a>
+<br /><br />
+<span id="divFilter">
+    Filtrar por marcador
+    @Html.DropDownList("MarcadorId", (IEnumerable<SelectListItem>)ViewBag.PessoaMarcadorId, "Todos", new { @class = "col-md-3", @id = "tblFilter", @style = "height: 30px" })
+</span>
+<table class="table table-sm bg-light table-bordered display compact" id="tblPessoas">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>Marcador</th>
+            <th>Contatos</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Marcador.Descricao)
+                </td>
+                <td>
+                    @foreach (var c in item.Contatos)
+                    {
+                        <b>@c.Tipo.Descricao:</b> @c.Descricao
+                        <br />
+                    }
+                </td>
+                <td class="text-center">
+
+                    <a class="btn btn-sm btn-info" href="/Pessoa/GetById/@item.Id"><i class="fas fa-search fa-sm"> </i>Visualizar Detalhes</a> |
+                    <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delTudoModal" onclick="confirmarDelTudo(@item.Id)"> <i class="fas fa-trash fa-sm"> </i> &nbsp; Deletar</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!--MODAL DELETAR TUDO-->
+<div class="modal fade" id="delTudoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deletar Contato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Tem certeza que deseja deletar todas as informações?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="delTudo()">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIM MODAL DELETAR TUDO-->
+@using (Html.BeginForm("Delete", "Pessoa", FormMethod.Post, new { @id = "formDelTudo" }))
+{
+    @Html.AntiForgeryToken()
+    <input id="delTudoId" name="Id" hidden />
+    <input type="submit" hidden />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var tblPessoas = $('#tblPessoas').DataTable({
+                searching: true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+                },
+                paging: false
+            });
+
+            $('#tblFilter').on('change', function () {
+                tblPessoas.search(this.value).draw();
+                $('#tblPessoas_filter input').val('');
+            });
+
+            checkFilter();
+        });
+
+        checkFilter = function () {
+            if ($('#tblPessoas_filter input').is(':visible')) {
+                createFilter();
+            } else {
+                setTimeout(checkFilter, 20);
+            }
+        }
+
+        createFilter = function () {
+            $('#divFilter').prependTo('#tblPessoas_wrapper');
+        }
+
+        confirmarDelTudo = function (id) {
+            $('#delTudoId').val(id);
+        }
+
+        delTudo = function () {
+            $('#formDelTudo').submit();
+        }
+
+
+    </script>
+}
